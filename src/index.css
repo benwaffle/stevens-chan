@@ -5,11 +5,27 @@ body {
    background-color: bisque;
 }
 
-.create-thread {
+h1 {
+   font-size: 2rem;
+   color: royalblue;
+   margin-left: 1rem;
+}
+
+.sub {
    margin: 1em;
-   border: 1px solid black;
    margin: 0 auto;
    width: 20em;
+}
+
+.clickme {
+   font-size: 32px;
+   font-weight: bold;
+   color: purple;
+}
+
+.clickme:hover {
+   color: red;
+   cursor: pointer;
 }
 
 .thread {
