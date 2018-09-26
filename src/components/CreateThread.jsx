@@ -7,7 +7,7 @@ export class CreateThread extends React.Component {
 
    render() {
       return (
-         <form id="create-thread">
+         <form className="create-thread">
             <h1>Create a Thread</h1>
             <textarea
                placeholder="message goes here"
