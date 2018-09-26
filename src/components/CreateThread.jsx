@@ -15,8 +15,8 @@ export class CreateThread extends React.Component {
                   <h2>Create a Thread</h2>
                   <textarea
                      placeholder="message goes here"
-                     rows="10"
-                     cols="40"
+                     rows={10}
+                     cols={40}
                      value={this.state.text}
                      onChange={event =>
                         this.setState({ text: event.target.value })
