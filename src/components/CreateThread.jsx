@@ -15,8 +15,8 @@ export class CreateThread extends React.Component {
             />
             <button
                onClick={e => {
-                  this.props.createThread(this.state.text);
                   e.preventDefault();
+                  this.props.createThread(this.state.text);
                }}
             >
                Submit

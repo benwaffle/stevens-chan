@@ -61,7 +61,7 @@ class App extends Component {
       const { threads } = this.state;
       return (
          <div className="App">
-            <CreateThread createThread={this.createThread} />
+            <CreateThread createThread={this.createThread.bind(this)} />
             {threads.map(e => (
                <Thread key={e.id} data={e} />
             ))}
