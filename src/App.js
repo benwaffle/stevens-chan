@@ -6,31 +6,28 @@ import './App.css';
 
 class App extends Component {
   state = {
-    n: 0,
-    name: 'none'
+    threads: {}
   }
 
   componentWillMount() {
-    firebase.firestore().collection('name').doc('name').onSnapshot((doc) => {
-      this.setState(state => ({
-        name: doc.data().name
-      }))
+    firebase.firestore().collection('threads').onSnapshot((doc) => {
+      this.setState(state => {
+        const threads = state.threads
+        doc.docChanges().map(({ type, doc }) => {
+          if (type === 'added' || type === 'modified')
+            threads[doc.data().id] = doc.data()
+          else if (type === 'removed')
+            delete threads[doc.data().id]
+        })
+        return { threads }
+      })
     })
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to {this.state.name} {this.state.n}</h1>
-          <button onClick={() => {
-            this.setState(state => ({n: state.n+1}))
-          }}>inc</button>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {JSON.stringify(this.state.threads)}
       </div>
     );
   }
