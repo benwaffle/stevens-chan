@@ -39,15 +39,19 @@ class App extends Component {
             this.setState(state => {
                const threads = state.threads;
                doc.docChanges().forEach(({ type, doc }) => {
-                  if (type === 'added' || type === 'modified')
-                     threads[doc.data().id] = doc.data();
-                  else if (type === 'removed') delete threads[doc.data().id];
+                 if (type === 'added' || type === 'modified')
+                   threads[doc.data().id] = {
+                     ...doc.data(),
+                     createdAt: doc.data().createdAt.toDate()
+                   }
+                 else if (type === 'removed')
+                   delete threads[doc.data().id];
                });
                return {
-                  threads: _.sortBy(
-                     Object.values(threads),
-                     v => new Date(v.createdAt)
-                  ).reverse()
+                 threads: _.sortBy(
+                    Object.values(threads),
+                    v => v.createdAt
+                 ).reverse()
                };
             });
          });
