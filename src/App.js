@@ -3,10 +3,22 @@ import logo from './logo.svg';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import './App.css';
+import { v4 as uuid } from 'uuid';
+import { CreateThread } from './CreateThread';
 
 class App extends Component {
   state = {
     threads: {}
+  }
+
+  createThread(text, image = null) {
+    const id = uuid()
+    firebase.firestore().collection('threads').doc(id).set({
+      id,
+      text,
+      image,
+      createdAt: new Date()
+    })
   }
 
   componentWillMount() {
@@ -27,7 +39,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {JSON.stringify(this.state.threads)}
+        <pre>{JSON.stringify(this.state.threads, null, 2)}</pre>
+        <CreateThread createThread={this.createThread} />
       </div>
     );
   }
