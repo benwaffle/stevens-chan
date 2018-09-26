@@ -1,5 +1,29 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+   margin: 0;
+   padding: 0;
+   font-family: sans-serif;
+}
+
+.thread {
+   background-color: bisque;
+   padding: 1em 2em;
+}
+
+.thread > .time {
+   color: red;
+}
+
+.split {
+   display: flex;
+   flex-direction: row;
+}
+
+.split > img {
+   width: 100px;
+   height: 100px;
+   padding-right: 40px;
+}
+
+.split > pre {
+   color: green;
 }
