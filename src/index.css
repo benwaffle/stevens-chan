@@ -5,17 +5,17 @@ body {
    background-color: bisque;
 }
 
-#create-thread {
-  margin: 1em;
-  border: 1px solid black;
-  margin: 0 auto;
-  width: 20em;
+.create-thread {
+   margin: 1em;
+   border: 1px solid black;
+   margin: 0 auto;
+   width: 20em;
 }
 
 .thread {
    background-color: #fccc92;
    margin: 1em 2em;
-   padding: .5em;
+   padding: 0.5em;
    border: 1px solid red;
 }
 

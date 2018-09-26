@@ -12,11 +12,11 @@ class App extends Component {
       threads: []
    };
 
-  constructor(props) {
-    super(props)
-    this.db = firebase.firestore()
-    this.db.settings({timestampsInSnapshots: true})
-  }
+   constructor(props) {
+      super(props);
+      this.db = firebase.firestore();
+      this.db.settings({ timestampsInSnapshots: true });
+   }
 
    createThread(text, image = null) {
       const id = uuid();
@@ -39,19 +39,18 @@ class App extends Component {
             this.setState(state => {
                const threads = state.threads;
                doc.docChanges().forEach(({ type, doc }) => {
-                 if (type === 'added' || type === 'modified')
-                   threads[doc.data().id] = {
-                     ...doc.data(),
-                     createdAt: doc.data().createdAt.toDate()
-                   }
-                 else if (type === 'removed')
-                   delete threads[doc.data().id];
+                  if (type === 'added' || type === 'modified')
+                     threads[doc.data().id] = {
+                        ...doc.data(),
+                        createdAt: doc.data().createdAt.toDate()
+                     };
+                  else if (type === 'removed') delete threads[doc.data().id];
                });
                return {
-                 threads: _.sortBy(
-                    Object.values(threads),
-                    v => v.createdAt
-                 ).reverse()
+                  threads: _.sortBy(
+                     Object.values(threads),
+                     v => v.createdAt
+                  ).reverse()
                };
             });
          });
