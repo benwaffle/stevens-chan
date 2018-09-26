@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import './App.css';
@@ -11,9 +10,15 @@ class App extends Component {
     threads: {}
   }
 
+  constructor(props) {
+    super(props)
+    this.db = firebase.firestore()
+    this.db.settings({timestampsInSnapshots: true})
+  }
+
   createThread(text, image = null) {
     const id = uuid()
-    firebase.firestore().collection('threads').doc(id).set({
+    this.db.collection('threads').doc(id).set({
       id,
       text,
       image,
