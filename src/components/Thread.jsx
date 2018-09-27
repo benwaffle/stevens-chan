@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 class Thread extends Component {
+   state = {
+      commentText: ''
+   }
+
    render() {
       const { data } = this.props;
       return (
@@ -17,6 +21,15 @@ class Thread extends Component {
                   {reply.text}
                 </div>
               )}
+              <div>
+                <form onSubmit={e => {
+                  e.preventDefault()
+                  this.props.createReply(data, this.state.commentText)
+                }}>
+                  <input placeholder="comment" onChange={e => this.setState({commentText: e.target.value})} />
+                  <button>Submit</button>
+                </form>
+              </div>
             </div>
          </div>
       );

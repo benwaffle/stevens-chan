@@ -33,6 +33,24 @@ class App extends Component {
          });
    }
 
+   createReply(thread, text) {
+      const id = uuid();
+      this.db
+         .collection('threads')
+         .doc(thread.id)
+         .set({
+            ...thread,
+            replies: [
+               ...(thread.replies || []),
+               {
+                  createdAt: new Date(),
+                  id,
+                  text
+               }
+            ]
+         }, { merge: true })
+   }
+
    componentWillMount() {
       firebase
          .firestore()
@@ -65,7 +83,7 @@ class App extends Component {
             <h1>stevens-chan</h1>
             <CreateThread createThread={this.createThread.bind(this)} />
             {threads.map(e => (
-               <Thread key={e.id} data={e} />
+               <Thread key={e.id} data={e} createReply={this.createReply.bind(this)} />
             ))}
          </div>
       );
