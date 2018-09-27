@@ -11,6 +11,13 @@ class Thread extends Component {
                {data.image && <img src={data.image} alt="garbage" />}
                <pre>{data.text}</pre>
             </div>
+            <div className="replies">
+              {(data.replies || []).map(reply =>
+                <div key={reply.id} className="reply">
+                  {reply.text}
+                </div>
+              )}
+            </div>
          </div>
       );
    }

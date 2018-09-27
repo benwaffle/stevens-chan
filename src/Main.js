@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
-import Thread from './components/Thread';
-import _ from 'lodash';
+import firebase from './firebase';
 import 'firebase/firestore';
-import './App.css';
+import _ from 'lodash';
+import React, { Component } from 'react';
 import { v4 as uuid } from 'uuid';
+import './App.css';
 import { CreateThread } from './components/CreateThread';
+import Thread from './components/Thread';
 
 class App extends Component {
    state = {
@@ -19,6 +19,8 @@ class App extends Component {
    }
 
    createThread(text, image = null) {
+      if (text === '')
+         return;
       const id = uuid();
       this.db
          .collection('threads')

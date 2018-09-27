@@ -53,3 +53,13 @@ h1 {
 .split > pre {
    color: green;
 }
+
+.replies {
+  margin-left: 1em;
+}
+
+.reply {
+  border: 1px solid red;
+  padding: 1em;
+  width: 40%;
+}
