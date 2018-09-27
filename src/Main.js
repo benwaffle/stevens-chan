@@ -9,7 +9,8 @@ import Thread from './components/Thread';
 
 class App extends Component {
    state = {
-      threads: []
+      threads: [],
+      page: 0
    };
 
    constructor(props) {
@@ -83,7 +84,13 @@ class App extends Component {
          <div className="App">
             <h1>stevens-chan</h1>
             <CreateThread createThread={this.createThread.bind(this)} />
-            {threads.map(e => (
+            {this.state.page < Math.ceil(this.state.threads.length / 10)
+            && <button onClick={() => this.setState(state => ({ page: state.page+1 }))}>Next page</button>}
+
+            {this.state.page > 0
+            && <button onClick={() => this.setState(state => ({ page: state.page-1 }))}>Prev page</button>}
+
+            {threads.slice(this.state.page*10, this.state.page*10+10).map(e => (
                <Thread key={e.id} data={e} createReply={this.createReply.bind(this)} />
             ))}
          </div>
