@@ -28,7 +28,7 @@ class Thread extends Component {
                <pre>{data.text}</pre>
             </div>
             <div className="replies">
-              {(data.replies || []).map(reply => (
+              {(data.replies || []).slice(-10).map(reply => (
                  <div key={reply.id} className="reply">
                     {reply.text}
                  </div>
