@@ -17,6 +17,7 @@ export class CreateThread extends React.Component {
                      placeholder="message goes here"
                      rows={10}
                      cols={40}
+                     required
                      value={this.state.text}
                      onChange={event =>
                         this.setState({ text: event.target.value })
