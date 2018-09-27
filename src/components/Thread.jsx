@@ -37,8 +37,14 @@ class Thread extends Component {
                 <form onSubmit={e => {
                   e.preventDefault()
                   this.props.createReply(data, this.state.commentText)
+                  this.setState({ commentText: '' })
                 }}>
-                  <input placeholder="comment" onChange={e => this.setState({commentText: e.target.value})} />
+                  <input
+                    required
+                    placeholder="comment"
+                    value={this.state.commentText}
+                    onChange={e => this.setState({commentText: e.target.value})}
+                  />
                   <button>Submit</button>
                 </form>
               </div>
