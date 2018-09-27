@@ -1,73 +1,18 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
-import Thread from './components/Thread';
-import _ from 'lodash';
-import 'firebase/firestore';
-import './App.css';
-import { v4 as uuid } from 'uuid';
-import { CreateThread } from './components/CreateThread';
+import React from 'react';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './Main';
+import ThreadViewer from './ThreadViewer';
 
-class App extends Component {
-   state = {
-      threads: []
-   };
-
-   constructor(props) {
-      super(props);
-      this.db = firebase.firestore();
-      this.db.settings({ timestampsInSnapshots: true });
-   }
-
-   createThread(text, image = null) {
-      const id = uuid();
-      this.db
-         .collection('threads')
-         .doc(id)
-         .set({
-            id,
-            text,
-            image,
-            createdAt: new Date()
-         });
-   }
-
-   componentWillMount() {
-      firebase
-         .firestore()
-         .collection('threads')
-         .onSnapshot(doc => {
-            this.setState(state => {
-               const threads = state.threads;
-               doc.docChanges().forEach(({ type, doc }) => {
-                  if (type === 'added' || type === 'modified')
-                     threads[doc.data().id] = {
-                        ...doc.data(),
-                        createdAt: doc.data().createdAt.toDate()
-                     };
-                  else if (type === 'removed') delete threads[doc.data().id];
-               });
-               return {
-                  threads: _.sortBy(
-                     Object.values(threads),
-                     v => v.createdAt
-                  ).reverse()
-               };
-            });
-         });
-   }
-
-   render() {
-      const { threads } = this.state;
-      return (
-         <div className="App">
-            <h1>stevens-chan</h1>
-            <CreateThread createThread={this.createThread.bind(this)} />
-            {threads.map(e => (
-               <Thread key={e.id} data={e} />
-            ))}
-         </div>
-      );
-   }
-}
-
-export default App;
+export default () => (
+   <BrowserRouter>
+      <Switch>
+         <Route exact path="/" component={Main} />
+         <Route path="/t/:threadId" component={ThreadViewer} />
+         <Route
+            path="*"
+            component={() => <h1 style={{ padding: '1em' }}>404: Not Found</h1>}
+         />
+      </Switch>
+   </BrowserRouter>
+);
