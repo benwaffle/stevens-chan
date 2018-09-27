@@ -3,24 +3,36 @@ import moment from 'moment';
 
 class Thread extends Component {
    state = {
-      commentText: ''
-   }
+      commentText: '',
+      bigboi: false
+   };
 
    render() {
       const { data } = this.props;
+      const { bigboi } = this.state;
       return (
          <div className="thread">
             <div className="time">{moment(data.createdAt).fromNow()}</div>
             <div className="split">
-               {data.image && <img src={data.image} alt="garbage" />}
+               {data.image && (
+                  <img
+                     src={data.image}
+                     onClick={() => this.setState({ bigboi: !bigboi })}
+                     style={{
+                        width: !bigboi ? '10em' : '80%',
+                        height: !bigboi ? '10em' : '80%'
+                     }}
+                     alt="garbage"
+                  />
+               )}
                <pre>{data.text}</pre>
             </div>
             <div className="replies">
-              {(data.replies || []).map(reply =>
-                <div key={reply.id} className="reply">
-                  {reply.text}
-                </div>
-              )}
+              {(data.replies || []).map(reply => (
+                 <div key={reply.id} className="reply">
+                    {reply.text}
+                 </div>
+              ))}
               <div>
                 <form onSubmit={e => {
                   e.preventDefault()

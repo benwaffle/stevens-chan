@@ -45,8 +45,6 @@ h1 {
 }
 
 .split > img {
-   width: 100px;
-   height: 100px;
    padding-right: 40px;
 }
 
@@ -55,11 +53,11 @@ h1 {
 }
 
 .replies {
-  margin-left: 1em;
+   margin-left: 1em;
 }
 
 .reply {
-  border: 1px solid red;
-  padding: 1em;
-  width: 40%;
+   border: 1px solid red;
+   padding: 1em;
+   width: 40%;
 }
