@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from '../firebase';
 
 export class CreateThread extends React.Component {
    constructor(props) {
@@ -24,7 +23,7 @@ export class CreateThread extends React.Component {
                      rows={10}
                      cols={40}
                      required
-                     value={this.state.text}
+                     value={text}
                      onChange={event =>
                         this.setState({ text: event.target.value })
                      }
@@ -37,7 +36,7 @@ export class CreateThread extends React.Component {
                         const file = this.fileInput.current.files[0];
 
                         const cont = (imageUrl = '') => {
-                          this.props.createThread(this.state.text, imageUrl);
+                          this.props.createThread(text, imageUrl);
                           this.setState({ text: '', open: false });
                         }
 
