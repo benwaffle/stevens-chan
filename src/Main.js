@@ -40,6 +40,7 @@ class App extends Component {
          .doc(thread.id)
          .set({
             ...thread,
+            createdAt: new Date(), // jk this is updatedAt
             replies: [
                ...(thread.replies || []),
                {
