@@ -30,13 +30,26 @@ export class CreateThread extends React.Component {
                      }
                   />
                   <br />
-                  <input type="file" name="fuck" ref={this.fileInput} />
+                  <input type="file" name="fuck" accept="image/*" ref={this.fileInput} />
                   <button
                      onClick={e => {
                         e.preventDefault();
-                        this.fileInput.current.files[0].name;
-                        this.props.createThread(this.state.text);
-                        this.setState({ text: '', open: false });
+                        const file = this.fileInput.current.files[0];
+
+                        const cont = (imageUrl = '') => {
+                          this.props.createThread(this.state.text, imageUrl);
+                          this.setState({ text: '', open: false });
+                        }
+
+                        if (file) {
+                          const fr = new FileReader();
+                          fr.onload = () => {
+                            cont(fr.result.toString());
+                          }
+                          fr.readAsDataURL(file)
+                        } else {
+                          cont();
+                        }
                      }}
                   >
                      Submit
