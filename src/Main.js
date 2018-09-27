@@ -57,7 +57,7 @@ class App extends Component {
          .collection('threads')
          .onSnapshot(doc => {
             this.setState(state => {
-               const threads = state.threads;
+               const threads = _.keyBy(state.threads, x => x.id);
                doc.docChanges().forEach(({ type, doc }) => {
                   if (type === 'added' || type === 'modified')
                      threads[doc.data().id] = {
